@@ -14,14 +14,15 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
         final ArrayList test = new ArrayList();
+        test.add("test text in test arraylist");
         try {
-            throw new CodeRunException(test, new CodeRunException.Code() {
+            throw new AsyncCodeException(test, new AsyncCodeException.Code() {
                 @Override
-                public <T> void Run(ArrayList<T> params) {
-                    Log.d("my code", "is running and whatnot");
+                public <T> void AsyncRun(ArrayList<T> params) {
+                    Log.d("inside AsyncRun", "params are: " + params.toString());
                 }
             });
-        } catch (CodeRunException exception) {
+        } catch (AsyncCodeException exception) {
         }
     }
 }
