@@ -1,10 +1,10 @@
 package com.alex.exceptionaljava;
 
-
 import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
+
 
 public class AsyncCodeException extends Exception {
 
@@ -18,21 +18,19 @@ public class AsyncCodeException extends Exception {
         code.execute(temp);
     }
 
-    public class AsyncCode extends AsyncTask<ArrayList, Void, Void> {
+    public class AsyncCode extends AsyncTask<Object, Void, Void> {
 
         @Override
-        protected Void doInBackground(ArrayList... params) {
+        protected Void doInBackground(Object... params) {
             boolean switcher = true;
             ArrayList temp = null;
             AsyncCodeException.Code code = null;
-            for (ArrayList element : params) {
-                for (Object ele : element) {
-                    if (switcher) {
-                        temp = (ArrayList)ele;
-                        switcher = false;
-                    } else {
-                        code = (AsyncCodeException.Code)ele;
-                    }
+            for (Object element : params) {
+                if (switcher) {
+                    temp = (ArrayList)element;
+                    switcher = false;
+                } else {
+                    code = (AsyncCodeException.Code)element;
                 }
             }
             try {
@@ -45,7 +43,6 @@ public class AsyncCodeException extends Exception {
     }
 
     public interface Code {
-
         public <T> void AsyncRun(ArrayList<T> params);
     }
 }
